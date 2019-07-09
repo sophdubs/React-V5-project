@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 const useDropdown = (label, defaultState, options) => {
-  const [state, setState] = useState(defaultState);
+  const [state, updateState] = useState(defaultState);
   const id = `use-dropdown-${label.replace(" ", "").toLowerCase()}`;
-  const Dropdown = () => {
+  const Dropdown = () => (
     <label htmlFor={id}>
       {label}
       <select
         id={id}
         value={state}
-        onChange={event => setState(event.target.value)}
-        onBlur={event => setState(event.target.value)}
+        onChange={event => updateState(event.target.value)}
+        onBlur={event => updateState(event.target.value)}
         disabled={options.length === 0}
       >
         <option>All</option>
@@ -20,10 +20,10 @@ const useDropdown = (label, defaultState, options) => {
           </option>
         ))}
       </select>
-    </label>;
-  };
+    </label>
+  );
 
-  return state, Dropdown, setState;
+  return [state, Dropdown, updateState];
 };
 
 export default useDropdown;
